@@ -10,24 +10,27 @@ namespace Chronometer
         Stopwatch sw = new Stopwatch();
         public Chronometer()
         {
-            
+            this.Laps = new List<string>();
         }
-        public string GetTime => sw.Elapsed.ToString();
+        public string GetTime => sw.Elapsed.ToString("c");
 
-        public List<string> Laps => new List<string>();
+        public List<string> Laps { get ; private set ; }
+
 
         public string Lap()
         {
-            TimeSpan TimeSpan = sw.Elapsed;
-            var lap = string.Format("{0}:{1}:{2}", TimeSpan.TotalMinutes, TimeSpan.Seconds, TimeSpan.Milliseconds);
+            TimeSpan timeSpan = sw.Elapsed;
+            var lap = timeSpan.ToString("c");
             this.Laps.Add(lap);
             return lap;
         }
 
         public void Reset()
         {
-            sw.Reset();
             sw.Stop();
+            sw.Reset();
+            
+            this.Laps.Clear();
         }
 
         public void Start()
